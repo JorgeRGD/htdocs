@@ -1,6 +1,6 @@
 <?php
 // Config conection
-require __DIR__ . '/DBInitializer.php';
+require __DIR__ . 'DBInitializer.php';
 $username = 'root';
 $password = '12345678';
 $dbName = 'dcleaner';
