@@ -16,6 +16,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categoria` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nombre` char(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `categoria`
 --
 
@@ -24,6 +38,25 @@ LOCK TABLES `categoria` WRITE;
 INSERT INTO `categoria` VALUES (1,'Mascarillas'),(2,'Gel Antibacterial'),(3,'Desinfectante'),(4,'Caretas');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `clientes`
+--
+
+DROP TABLE IF EXISTS `clientes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `clientes` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nombre` char(55) NOT NULL,
+  `email` char(55) NOT NULL,
+  `passwd` char(20) NOT NULL,
+  `codigo_postal` decimal(5,0) NOT NULL,
+  `direccion` char(95) NOT NULL,
+  `ciudad` char(35) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `clientes`
@@ -36,6 +69,30 @@ INSERT INTO `clientes` VALUES (1,'Flora Tulio Bullock','flora@gmail.com','Pakes2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productos` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nombre` char(55) NOT NULL,
+  `descripcion` char(255) NOT NULL,
+  `categoria_id` smallint(6) NOT NULL,
+  `provedor_id` smallint(6) NOT NULL,
+  `stock` smallint(6) NOT NULL,
+  `imag` char(100) NOT NULL,
+  `precio_unitario` decimal(8,3) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `categoria_id` (`categoria_id`),
+  KEY `provedor_id` (`provedor_id`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`),
+  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`provedor_id`) REFERENCES `provedores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `productos`
 --
 
@@ -46,6 +103,25 @@ INSERT INTO `productos` VALUES (1,'Mascarilla KN95','NA',1,1,2499,'1',8.560),(2,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `provedores`
+--
+
+DROP TABLE IF EXISTS `provedores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `provedores` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nombre` char(55) NOT NULL,
+  `email` char(55) NOT NULL,
+  `telefono` char(10) NOT NULL,
+  `codigo_postal` decimal(5,0) NOT NULL,
+  `direccion` char(95) NOT NULL,
+  `ciudad` char(35) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `provedores`
 --
 
@@ -54,6 +130,31 @@ LOCK TABLES `provedores` WRITE;
 INSERT INTO `provedores` VALUES (1,'3M','','5511224466',10231,'',''),(2,'Schiller Group','','5612371232',92321,'',''),(3,'Rohan Inc','','2323234511',23452,'','');
 /*!40000 ALTER TABLE `provedores` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `transacciones`
+--
+
+DROP TABLE IF EXISTS `transacciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `transacciones` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `producto_id` smallint(6) NOT NULL,
+  `cliente_id` smallint(6) NOT NULL,
+  `cantidad` decimal(7,0) NOT NULL,
+  `total` decimal(9,3) NOT NULL,
+  `tipo_pago` char(95) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ciudad` char(35) NOT NULL,
+  `estatus` char(12) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `producto_id` (`producto_id`),
+  KEY `cliente_id` (`cliente_id`),
+  CONSTRAINT `transacciones_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`),
+  CONSTRAINT `transacciones_ibfk_2` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `transacciones`
@@ -115,4 +216,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-19 10:37:09
+-- Dump completed on 2021-08-19 11:03:34
