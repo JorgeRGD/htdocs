@@ -1,6 +1,6 @@
 DROP DATABASE dcleaner;
 CREATE DATABASE dcleaner;
-USE DCleaner;
+USE dcleaner;
 
 CREATE TABLE clientes (
     id smallint NOT NULL AUTO_INCREMENT,
