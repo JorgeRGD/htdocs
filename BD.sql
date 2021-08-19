@@ -59,7 +59,6 @@ CREATE TABLE transacciones (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 
-USE dcleaner;
 
 INSERT INTO provedores(nombre, email, telefono, codigo_postal, direccion, ciudad) VALUES
 						('3M', '', '5511224466', 10231, '', ''),
@@ -76,8 +75,6 @@ INSERT INTO clientes (nombre, email, passwd, codigo_postal, direccion, ciudad) V
                         ('Codie Esmurd Adam', 'codiees@gmail.com', 'duyuds', 60212, 'Santurio 19 Jerez Centro','Jerez de García'),
                         ('Adebert Macey Griffin', 'aldb@gmail.com', 'ddwfjiwdw', 20744,  'Cuautepec No. 29 La Unión Chalma', 'Estado de México');
 
-SELECT * FROM clientes; 
-
 INSERT INTO productos (nombre, descripcion, categoria_id, provedor_id, stock,  imag, precio_unitario) VALUES 
 					('Mascarilla KN95', 'NA', 1, 1, 2500, '1', 8.56),
                     ('Gel Antibacterial Escudo Sobre', 'NA', 2, 1, 6300, '2', 9.89),
@@ -85,7 +82,6 @@ INSERT INTO productos (nombre, descripcion, categoria_id, provedor_id, stock,  i
                     ('Best Trading Cubrebocas', 'NA', 1, 3, 3000, '4', 1.960),
                     ('Careta Protectora PVC', 'NA', 4, 2, 1000, '5', 34.9);
                     
-SELECT * FROM productos;
 
 INSERT INTO transacciones (producto_id, cliente_id, cantidad, total,  tipo_pago, fecha, ciudad, estatus) values
 						(1, 1, 1, 0, 'transferencia', '2010-12-01 08:26:00',  'Zapopan', 'completo');
